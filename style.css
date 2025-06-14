@@ -47,6 +47,7 @@ body {
   font-family: 'Unbounded', sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .container {
