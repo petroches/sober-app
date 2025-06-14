@@ -4,7 +4,7 @@
   "start_url": ".",
   "display": "standalone",
   "background_color": "#FFFFFF",
-  "theme_color": "#3D4EAC",
+  "theme_color": "#FFFFFF",
   "icons": [
     {
       "src": "sober-icon-512.png",
