@@ -1,61 +1,62 @@
 <!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Settings</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main class="container">
-      <header class="header">
-        <h1 class="title">Settings</h1>
-        <a href="index.html" class="settings-btn">
-          <img src="https://i.postimg.cc/9FnMxfzp/settings-24px-x3.png" alt="Назад" />
-        </a>
-      </header>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="settings-container">
+    <a href="index.html" class="back-icon">
+      <img src="https://i.postimg.cc/ZKRnFNYn/close-24-px-x3.png" alt="Back" />
+    </a>
+    <h1>Settings</h1>
 
-      <form id="settings-form" class="settings-form">
-        <label>
-          Gender
-          <select name="gender">
-            <option value="male">Man</option>
-            <option value="female">Female</option>
-          </select>
-        </label>
+    <div class="setting-group">
+      <label for="gender">Gender</label>
+      <select id="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+    <hr />
 
-        <label>
-          Age
-          <input type="number" name="age" min="10" max="120" />
-        </label>
+    <div class="setting-group">
+      <label for="age">Age</label>
+      <input type="number" id="age" min="0" />
+    </div>
+    <hr />
 
-        <label>
-          Weight, kg
-          <input type="number" name="weight" min="30" max="200" />
-        </label>
+    <div class="setting-group">
+      <label for="weight">Weight (kg)</label>
+      <input type="number" id="weight" min="0" />
+    </div>
+    <hr />
 
-        <label>
-          Country
-          <select name="country">
-            <option value="RU">Russia</option>
-            <option value="RS">Serbia</option>
-          </select>
-        </label>
+    <div class="setting-group">
+      <label for="country">Country</label>
+      <select id="country">
+        <option value="serbia">Serbia</option>
+        <option value="russia">Russia</option>
+        <option value="usa">USA</option>
+        <option value="germany">Germany</option>
+        <!-- expand as needed -->
+      </select>
+    </div>
+    <hr />
 
-        <label>
-          Theme
-          <select name="theme">
-            <option value="auto">Auto</option>
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-          </select>
-        </label>
+    <div class="setting-group">
+      <label for="theme">Theme</label>
+      <select id="theme">
+        <option value="auto">Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+  </div>
 
-        <button type="submit" class="save-btn">Save</button>
-      </form>
-    </main>
-
-    <script src="storage.js"></script>
-    <script src="settings.js"></script>
-  </body>
+  <script src="settings.js"></script>
+</body>
 </html>
