@@ -172,37 +172,3 @@ body {
   border-color: var(--border-brand);
   color: var(--text-brand);
 }
-
-.settings-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-.settings-form label {
-  display: flex;
-  flex-direction: column;
-  font-size: 1rem;
-  color: var(--text-primary);
-}
-
-.settings-form input,
-.settings-form select {
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border-default);
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-}
-
-.save-btn {
-  padding: 0.75rem;
-  font-weight: 600;
-  font-size: 1rem;
-  background-color: var(--bg-brand);
-  color: var(--text-invert);
-  border: none;
-  border-radius: 0.75rem;
-  cursor: pointer;
-}
