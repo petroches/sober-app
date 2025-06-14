@@ -16,7 +16,7 @@ function updateResult() {
   const factor = drinkFactors[selectedDrink];
   const rawHours = selectedQuantity * factor;
   const rounded = Math.ceil(rawHours * 2) / 2;
-  resultDisplay.textContent = ${rounded}h;
+  resultDisplay.textContent = `${rounded}h`;
 }
 
 drinkCards.forEach(card => {
