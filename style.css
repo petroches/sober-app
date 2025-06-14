@@ -21,7 +21,7 @@
     --text-brand: #7CABF8;
     --text-invert: #2A2F45;
 
-    --bg-primary: #2A2F45; /* gray-80 заменено на hex */
+    --bg-primary: #2A2F45; 
     --bg-secondary: #3C4257;
     --bg-secondary-active: #4F566B;
     --bg-brand: #7CABF8;
@@ -42,7 +42,7 @@ body {
 
 .container {
   max-width: 27.5rem; /* 440px */
-  min-height: 59.75rem; /* 956px */
+  max-height: 59.75rem; /* 956px */
   margin: 0 auto;
   padding: 3rem; /* 48px */
   box-sizing: border-box;
@@ -142,7 +142,7 @@ body {
   font-weight: 600;
   color: var(--text-secondary);
   border: 2px solid var(--border-transparent);
-  border-radius: 0.75rem; /* Добавлено: скругление 12px */
+  border-radius: 0.75rem;
 }
 
 
