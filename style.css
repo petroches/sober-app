@@ -177,5 +177,16 @@ body {
   height: 0.0625rem;
   background-color: var(--border-default);
   margin-top: 2rem;
-  margin-bottom: 1.5rem;
+}
+
+.settings-page .header {
+  padding-bottom: 1.25rem;
+}
+
+.settings-page .result-label {
+  padding-bottom: 0.5rem;
+}
+
+.settings-page .quantity-control {
+  padding-bottom: 1.5rem;
 }
