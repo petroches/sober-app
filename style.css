@@ -167,8 +167,14 @@ body {
   border-radius: 0.75rem;
 }
 
-
 .quantity-option.selected {
   border-color: var(--border-brand);
   color: var(--text-brand);
+}
+
+.separator {
+  width: 100%;
+  height: 0.0625rem;
+  background-color: var(--border-default);
+  margin-top: 2rem;
 }
