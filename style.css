@@ -136,10 +136,12 @@ body {
   align-items: center;
   padding: 1rem;
   border: 2px solid var(--border-transparent);
+  cursor: pointer;
 }
 
 .drink-card.selected {
   border-color: var(--border-brand);
+  cursor: default;
 }
 
 .drink-card img {
@@ -165,11 +167,13 @@ body {
   color: var(--text-secondary);
   border: 2px solid var(--border-transparent);
   border-radius: 0.75rem;
+  cursor: pointer;
 }
 
 .quantity-option.selected {
   border-color: var(--border-brand);
   color: var(--text-brand);
+  cursor: default;
 }
 
 .separator {
