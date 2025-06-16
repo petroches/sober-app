@@ -38,3 +38,7 @@ quantityOptions.forEach(option => {
 });
 
 updateResult();
+
+document.querySelector('.settings-btn').addEventListener('click', () => {
+  window.location.href = 'settings.html';
+});
