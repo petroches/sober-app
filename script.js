@@ -1,3 +1,6 @@
+// Enable :active styles on iOS Safari
+document.addEventListener('touchstart', () => {}, true);
+
 // Alcohol absorption factors per drink type (in hours per unit)
 const drinkFactors = {
   beer: 0.5,
@@ -52,6 +55,3 @@ updateResult();
 document.querySelector('.btn').addEventListener('click', () => {
   window.location.href = 'settings.html';
 });
-
-// Enable :active styles on iOS Safari
-document.addEventListener('touchstart', () => {}, true);
