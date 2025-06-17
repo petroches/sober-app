@@ -1,8 +1,9 @@
 .carousel-wrapper {
   position: relative;
-  overflow: hidden;
+  overflow: hidden; /* ← ВАЖНО: обрезаем весь контент по ширине wrapper'а */
   margin-bottom: 2rem;
 }
+
 
 .carousel-indicator {
   position: absolute;
@@ -21,11 +22,15 @@
   display: flex;
   flex-direction: row;
   overflow-x: auto;
+  overflow-y: hidden; /* ← обязательно */
   background-color: #F4F7FA;
   scrollbar-width: none;
   scroll-behavior: smooth;
   border-radius: 0.75rem;
+  position: relative;     /* ← обязательно для clip */
+  clip-path: inset(0);    /* ← подстраховка для Safari */
 }
+
 
 .carousel-control::-webkit-scrollbar {
   display: none;
@@ -43,6 +48,13 @@
   border-radius: 0.75rem;
   user-select: none;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.carousel-option:active {
+  background-color: #E3E8ED;
 }
 
 .carousel-option.selected {
