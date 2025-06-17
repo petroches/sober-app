@@ -27,16 +27,17 @@ function updateResult() {
 }
 
 // Handle drink card selection
-card.addEventListener('click', () => {
-  // Delay logic slightly to allow :active style to render
-  setTimeout(() => {
-    drinkCards.forEach(c => c.classList.remove('selected'));
-    card.classList.add('selected');
-    selectedDrink = card.dataset.drink;
-    updateResult();
-  }, 50); // 50ms достаточно
+drinkCards.forEach(card => {
+  card.addEventListener('click', () => {
+    // Delay logic slightly to allow :active style to render
+    setTimeout(() => {
+      drinkCards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      selectedDrink = card.dataset.drink;
+      updateResult();
+    }, 50); // 50ms is enough for visual :active effect
+  });
 });
-
 
 // Handle quantity segmented control selection
 quantityOptions.forEach(option => {
