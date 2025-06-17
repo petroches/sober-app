@@ -52,9 +52,11 @@
   box-sizing: border-box;
 }
 
+/*
 .carousel-option:active {
   background-color: var(--bg-secondary-active);
 }
+*/
 
 .carousel-option.selected {
   color: var(--text-brand);
