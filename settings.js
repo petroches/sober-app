@@ -1,3 +1,6 @@
+// Enable :active styles on iOS Safari
+document.addEventListener('touchstart', () => {}, true);
+
 // Go back to the main page when the close button is clicked
 function goBack() {
   window.location.href = "index.html";
@@ -18,6 +21,3 @@ allControls.forEach(control => {
     });
   });
 });
-
-// Enable :active styles on iOS Safari
-document.addEventListener('touchstart', () => {}, true);
