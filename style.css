@@ -137,6 +137,9 @@ body {
   margin-top: 0.75rem; /* 12px */
 }
 
+/* ==========================================================================
+   COMPONENT: DRINK CARD
+========================================================================== */
 .drink-selection {
   flex-grow: 1;
   display: grid;
@@ -167,7 +170,10 @@ body {
   height: 5rem;
 }
 
-.quantity-control {
+/* ==========================================================================
+   COMPONENT: SEGMENTED CONTROL (QUANTITY)
+========================================================================== */
+.segmented-control {
   display: flex;
   justify-content: space-between;
   background-color: var(--bg-secondary);
@@ -175,7 +181,7 @@ body {
   overflow: hidden;
 }
 
-.quantity-option {
+.segmented-option {
   flex: 1;
   text-align: center;
   padding: 0.75rem 0;
@@ -188,7 +194,7 @@ body {
   cursor: pointer;
 }
 
-.quantity-option.selected {
+.segmented-option.selected {
   border-color: var(--border-brand);
   color: var(--text-brand);
   cursor: default;
