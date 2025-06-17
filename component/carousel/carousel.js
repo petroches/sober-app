@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const key = wrapper.dataset.carousel;
 
     const values = valuesAttr.split(',').map(v => v.trim());
-    const repeat = 3;
+    const repeat = 5;
     const allValues = Array(repeat).fill(values).flat();
 
     const optionWidth = 4 * 16;
@@ -92,10 +92,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     control.scrollLeft = totalChunk * (midpointChunk + 1);
 
-    const savedValue = localStorage.getItem(`carousel_${key}`);
+    let savedValue = localStorage.getItem(`carousel_${key}`);
+    const defaultValue = wrapper.dataset.default;
+
+    if (!savedValue && defaultValue && values.includes(defaultValue)) {
+      savedValue = defaultValue;
+    }
+
     if (savedValue && values.includes(savedValue)) {
       const indexInOriginal = values.indexOf(savedValue);
-      const indexInFull = (midpointChunk + 1) * values.length + indexInOriginal;
+      const indexInFull = Math.floor(repeat / 2) * values.length + indexInOriginal;
       const targetScroll = indexInFull * optionWidth + optionWidth / 2 - control.offsetWidth / 2;
       control.scrollLeft = targetScroll;
     }
@@ -105,31 +111,33 @@ document.addEventListener('DOMContentLoaded', () => {
     let scrollTimeout;
     control.addEventListener('scroll', () => {
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(centerToClosest, 100);
+      scrollTimeout = setTimeout(centerToClosest, 150);
     });
 
-    // Desktop drag
-    control.addEventListener('mousedown', e => {
-      isDragging = true;
-      dragMoved = false;
-      startX = e.pageX - control.offsetLeft;
-      scrollStart = control.scrollLeft;
-    });
-
-    window.addEventListener('mousemove', e => {
-      if (!isDragging) return;
-      dragMoved = true;
-      const x = e.pageX - control.offsetLeft;
-      const walk = startX - x;
-      control.scrollLeft = scrollStart + walk;
-    });
-
-    window.addEventListener('mouseup', () => {
-      if (isDragging) {
-        isDragging = false;
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (!isTouch) {
+      control.addEventListener('mousedown', e => {
+        isDragging = true;
         dragMoved = false;
-        centerToClosest();
-      }
-    });
+        startX = e.pageX - control.offsetLeft;
+        scrollStart = control.scrollLeft;
+      });
+
+      window.addEventListener('mousemove', e => {
+        if (!isDragging) return;
+        dragMoved = true;
+        const x = e.pageX - control.offsetLeft;
+        const walk = startX - x;
+        control.scrollLeft = scrollStart + walk;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          dragMoved = false;
+          centerToClosest();
+        }
+      });
+    }
   });
 });
