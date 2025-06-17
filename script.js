@@ -42,3 +42,6 @@ updateResult();
 document.querySelector('.btn').addEventListener('click', () => {
   window.location.href = 'settings.html';
 });
+
+// Enable :active styles on iOS Safari
+document.addEventListener('touchstart', () => {}, true);
