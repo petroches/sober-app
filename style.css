@@ -198,6 +198,10 @@ body {
   cursor: pointer;
 }
 
+.segmented-option:active {
+  background-color: var(--bg-secondary-active);
+}
+
 .segmented-option.selected {
   border-color: var(--border-brand);
   color: var(--text-brand);
