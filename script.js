@@ -24,14 +24,16 @@ function updateResult() {
 }
 
 // Handle drink card selection
-drinkCards.forEach(card => {
-  card.addEventListener('click', () => {
+card.addEventListener('click', () => {
+  // Delay logic slightly to allow :active style to render
+  setTimeout(() => {
     drinkCards.forEach(c => c.classList.remove('selected'));
     card.classList.add('selected');
     selectedDrink = card.dataset.drink;
     updateResult();
-  });
+  }, 50); // 50ms достаточно
 });
+
 
 // Handle quantity segmented control selection
 quantityOptions.forEach(option => {
