@@ -5,7 +5,7 @@ const drinkFactors = {
   shot: 1.4
 };
 
-const quantityOptions = document.querySelectorAll('.quantity-option');
+const quantityOptions = document.querySelectorAll('.segmented-option');
 const drinkCards = document.querySelectorAll('.drink-card');
 const resultDisplay = document.getElementById('resultHours');
 
