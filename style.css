@@ -200,6 +200,9 @@ body {
   cursor: default;
 }
 
+/* ==========================================================================
+   COMPONENT: SEPARATOR
+========================================================================== */
 .separator {
   width: 100%;
   height: 0.0625rem;
@@ -208,6 +211,20 @@ body {
   margin-bottom: 1.5rem
 }
 
+/* ==========================================================================
+   PAGE: SETTINGS OVERRIDES
+========================================================================== */
+.settings-page .header {
+  margin-bottom: 1.25rem;
+}
+
+.settings-page .result-label {
+  margin-bottom: 0.5rem;
+}
+
+.settings-page .quantity-control {
+  margin-bottom: 1.5rem;
+}
 .settings-page .header {
   margin-bottom: 1.25rem;
 }
