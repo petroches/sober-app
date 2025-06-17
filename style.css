@@ -91,6 +91,13 @@ body {
   font-weight: 800;
 }
 
+.label {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
 /* ==========================================================================
    LAYOUT COMPONENTS: HEADER
 ========================================================================== */
@@ -122,13 +129,6 @@ body {
 
 .result-block {
   margin-top: 0.75rem; /* 12px */
-}
-
-.label {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 600;
-  color: var(--text-secondary);
 }
 
 .drink-selection {
@@ -200,7 +200,7 @@ body {
   margin-bottom: 1.25rem;
 }
 
-.settings-page .result-label {
+.settings-page .label {
   margin-bottom: 0.5rem;
 }
 
