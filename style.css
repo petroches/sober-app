@@ -35,6 +35,9 @@
   }
 }
 
+/* ==========================================================================
+   BASE: HTML, BODY, CONTAINER
+========================================================================== */
 html, body {
   height: 100%;
   margin: 0;
@@ -72,17 +75,23 @@ body {
   }
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
+/* ==========================================================================
+   TYPOGRAPHY
+========================================================================== */
 .title {
   font-weight: 600;
   font-size: 2rem; /* 32px */
   line-height: 3rem; /* 48px */
   margin: 0;
+}
+
+/* ==========================================================================
+   LAYOUT COMPONENTS: HEADER
+========================================================================== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .settings-btn {
@@ -109,7 +118,7 @@ body {
   margin-top: 0.75rem; /* 12px */
 }
 
-.result-time {
+.number {
   font-size: 4.5rem; /* 72px */
   line-height: 4.5rem;
   font-weight: 800;
