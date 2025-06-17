@@ -1,0 +1,51 @@
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.carousel-indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid #007aff;
+  border-radius: 0.75rem;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.carousel-control {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  background-color: #F4F7FA;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  border-radius: 0.75rem;
+}
+
+.carousel-control::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-option {
+  flex: 0 0 4rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #666;
+  border-radius: 0.75rem;
+  user-select: none;
+  cursor: pointer;
+}
+
+.carousel-option.selected {
+  color: #007aff;
+  font-weight: 600;
+}
