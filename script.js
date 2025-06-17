@@ -39,6 +39,6 @@ quantityOptions.forEach(option => {
 
 updateResult();
 
-document.querySelector('.settings-btn').addEventListener('click', () => {
+document.querySelector('.btn').addEventListener('click', () => {
   window.location.href = 'settings.html';
 });
