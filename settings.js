@@ -13,3 +13,6 @@ allControls.forEach(control => {
     });
   });
 });
+
+// Enable :active styles on iOS Safari
+document.addEventListener('touchstart', () => {}, true);
