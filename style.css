@@ -1,3 +1,6 @@
+/* ==========================================================================
+   TOKENS / COLOR VARIABLES
+========================================================================== */
 :root {
   --text-primary: #1A1F36;
   --text-secondary: #697386;
@@ -17,13 +20,13 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --text-primary: #F1F5F9;
-    --text-secondary: #8792A1;
+    --text-secondary: #A3ACB9;
     --text-brand: #7CABF8;
     --text-invert: #2A2F45;
 
-    --bg-primary: #2A2F45; 
-    --bg-secondary: #3C4257;
-    --bg-secondary-active: #4F566B;
+    --bg-primary: #1A1F36; 
+    --bg-secondary: #2A2F45;
+    --bg-secondary-active: #3C4257;
     --bg-brand: #7CABF8;
 
     --border-default: #4F566B;
@@ -32,6 +35,9 @@
   }
 }
 
+/* ==========================================================================
+   BASE: HTML, BODY, CONTAINER
+========================================================================== */
 html, body {
   height: 100%;
   margin: 0;
@@ -69,12 +75,9 @@ body {
   }
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
+/* ==========================================================================
+   TYPOGRAPHY
+========================================================================== */
 .title {
   font-weight: 600;
   font-size: 2rem; /* 32px */
@@ -82,7 +85,32 @@ body {
   margin: 0;
 }
 
-.settings-btn {
+.number {
+  font-size: 4.5rem; /* 72px */
+  line-height: 4.5rem;
+  font-weight: 800;
+}
+
+.label {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   COMPONENT: HEADER
+========================================================================== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ==========================================================================
+   COMPONENT: BUTTON
+========================================================================== */
+.btn {
   width: 3rem; /* 48px */
   height: 3rem;
   padding: 0.75rem;
@@ -93,32 +121,25 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.settings-btn:active {
+.btn:active {
   background-color: var(--bg-secondary-active);
 }
 
-.settings-btn img {
+.btn img {
   width: 1.5rem;
   height: 1.5rem;
 }
 
+/* ==========================================================================
+   PAGE: MAIN MARGINS
+========================================================================== */
 .result-block {
   margin-top: 0.75rem; /* 12px */
 }
 
-.result-time {
-  font-size: 4.5rem; /* 72px */
-  line-height: 4.5rem;
-  font-weight: 800;
-}
-
-.result-label {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
+/* ==========================================================================
+   COMPONENT: DRINK CARD
+========================================================================== */
 .drink-selection {
   flex-grow: 1;
   display: grid;
@@ -139,6 +160,10 @@ body {
   cursor: pointer;
 }
 
+.drink-card:active {
+  background-color: var(--bg-secondary-active);
+}
+
 .drink-card.selected {
   border-color: var(--border-brand);
   cursor: default;
@@ -147,9 +172,18 @@ body {
 .drink-card img {
   width: 5rem;
   height: 5rem;
+  transition: transform 0.3s ease; /* smooth scaling animation */
 }
 
-.quantity-control {
+/* Selected state: icon stays zoomed in while selected */
+.drink-card.selected img {
+  transform: scale(1.1); /* 10% larger, persistent */
+}
+
+/* ==========================================================================
+   COMPONENT: SEGMENTED CONTROL (QUANTITY)
+========================================================================== */
+.segmented-control {
   display: flex;
   justify-content: space-between;
   background-color: var(--bg-secondary);
@@ -157,7 +191,7 @@ body {
   overflow: hidden;
 }
 
-.quantity-option {
+.segmented-option {
   flex: 1;
   text-align: center;
   padding: 0.75rem 0;
@@ -170,12 +204,19 @@ body {
   cursor: pointer;
 }
 
-.quantity-option.selected {
+.segmented-option:active {
+  background-color: var(--bg-secondary-active);
+}
+
+.segmented-option.selected {
   border-color: var(--border-brand);
   color: var(--text-brand);
   cursor: default;
 }
 
+/* ==========================================================================
+   COMPONENT: SEPARATOR
+========================================================================== */
 .separator {
   width: 100%;
   height: 0.0625rem;
@@ -184,6 +225,9 @@ body {
   margin-bottom: 1.5rem
 }
 
+/* ==========================================================================
+   PAGE: SETTINGS OVERRIDES
+========================================================================== */
 .settings-page .header {
   margin-bottom: 1.25rem;
 }
@@ -193,5 +237,16 @@ body {
 }
 
 .settings-page .quantity-control {
+  margin-bottom: 1.5rem;
+}
+.settings-page .header {
+  margin-bottom: 1.25rem;
+}
+
+.settings-page .label {
+  margin-bottom: 0.5rem;
+}
+
+.settings-page .segmented-control {
   margin-bottom: 1.5rem;
 }

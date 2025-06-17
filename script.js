@@ -1,3 +1,7 @@
+// Enable :active styles on iOS Safari
+document.addEventListener('touchstart', () => {}, true);
+
+// Alcohol absorption factors per drink type (in hours per unit)
 const drinkFactors = {
   beer: 0.5,
   wine: 1.0,
@@ -5,40 +9,53 @@ const drinkFactors = {
   shot: 1.4
 };
 
-const quantityOptions = document.querySelectorAll('.quantity-option');
+// DOM elements
+const quantityOptions = document.querySelectorAll('.segmented-option');
 const drinkCards = document.querySelectorAll('.drink-card');
 const resultDisplay = document.getElementById('resultHours');
 
+// Selected values by default
 let selectedDrink = 'beer';
 let selectedQuantity = 1;
 
+// Calculate and update display with estimated sobering time
 function updateResult() {
   const factor = drinkFactors[selectedDrink];
   const rawHours = selectedQuantity * factor;
-  const rounded = Math.ceil(rawHours * 2) / 2;
+  const rounded = Math.ceil(rawHours * 2) / 2; // Round to nearest 0.5
   resultDisplay.textContent = `${rounded}h`;
 }
 
+// Handle drink card selection
 drinkCards.forEach(card => {
   card.addEventListener('click', () => {
-    drinkCards.forEach(c => c.classList.remove('selected'));
-    card.classList.add('selected');
-    selectedDrink = card.dataset.drink;
-    updateResult();
+    // Delay logic slightly to allow :active style to render
+    setTimeout(() => {
+      drinkCards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      selectedDrink = card.dataset.drink;
+      updateResult();
+    }, 50); // 50ms is enough for visual :active effect
   });
 });
 
+// Handle quantity segmented control selection with small delay
 quantityOptions.forEach(option => {
   option.addEventListener('click', () => {
-    quantityOptions.forEach(o => o.classList.remove('selected'));
-    option.classList.add('selected');
-    selectedQuantity = parseInt(option.dataset.qty);
-    updateResult();
+    // Delay logic slightly to allow :active style to render
+    setTimeout(() => {
+      quantityOptions.forEach(o => o.classList.remove('selected'));
+      option.classList.add('selected');
+      selectedQuantity = parseInt(option.dataset.qty);
+      updateResult();
+    }, 50); // ~1 animation frame delay
   });
 });
 
+// Initial render
 updateResult();
 
-document.querySelector('.settings-btn').addEventListener('click', () => {
+// Navigate to settings page on button click
+document.querySelector('.btn').addEventListener('click', () => {
   window.location.href = 'settings.html';
 });
