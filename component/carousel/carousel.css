@@ -1,6 +1,6 @@
 .carousel-wrapper {
   position: relative;
-  overflow: hidden; /* ← ВАЖНО: обрезаем весь контент по ширине wrapper'а */
+  overflow: hidden; /* Cut overflowing content */
   margin-bottom: 2rem;
 }
 
