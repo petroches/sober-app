@@ -4,7 +4,6 @@
   margin-bottom: 2rem;
 }
 
-
 .carousel-indicator {
   position: absolute;
   top: 0;
@@ -12,7 +11,7 @@
   width: 4rem;
   left: 50%;
   transform: translateX(-50%);
-  border: 2px solid #007aff;
+  border: 2px solid var(--border-brand);
   border-radius: 0.75rem;
   pointer-events: none;
   z-index: 2;
@@ -23,7 +22,7 @@
   flex-direction: row;
   overflow-x: auto;
   overflow-y: hidden; /* ← обязательно */
-  background-color: #F4F7FA;
+  background-color: var(--bg-secondary);
   scrollbar-width: none;
   scroll-behavior: smooth;
   border-radius: 0.75rem;
@@ -44,7 +43,7 @@
   align-items: center;
   font-size: 1rem;
   font-weight: 600;
-  color: #666;
+  color: var(--text-secondary);
   border-radius: 0.75rem;
   user-select: none;
   cursor: pointer;
@@ -54,10 +53,10 @@
 }
 
 .carousel-option:active {
-  background-color: #E3E8ED;
+  background-color: var(--bg-secondary-active);
 }
 
 .carousel-option.selected {
-  color: #007aff;
+  color: var(--text-brand);
   font-weight: 600;
 }
