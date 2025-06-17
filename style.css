@@ -172,17 +172,12 @@ body {
 .drink-card img {
   width: 5rem;
   height: 5rem;
-  transition: transform 0.2s ease; /* smooth scaling animation */
-}
-
-/* Active state: zoom in slightly when tapped (works on mobile with :active) */
-.drink-card:active img {
-  transform: scale(1.1); /* 10% larger */
+  transition: transform 0.3s ease; /* smooth scaling animation */
 }
 
 /* Selected state: icon stays zoomed in while selected */
 .drink-card.selected img {
-  transform: scale(1.1); /* 10% larger, persistent */
+  transform: scale(1.25); /* 25% larger, persistent */
 }
 
 /* ==========================================================================
