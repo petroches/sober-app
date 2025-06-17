@@ -99,7 +99,7 @@ body {
 }
 
 /* ==========================================================================
-   LAYOUT COMPONENTS: HEADER
+   COMPONENT: HEADER
 ========================================================================== */
 .header {
   display: flex;
@@ -107,7 +107,10 @@ body {
   align-items: center;
 }
 
-.settings-btn {
+/* ==========================================================================
+   COMPONENT: BUTTON
+========================================================================== */
+.btn {
   width: 3rem; /* 48px */
   height: 3rem;
   padding: 0.75rem;
@@ -118,15 +121,18 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.settings-btn:active {
+.btn:active {
   background-color: var(--bg-secondary-active);
 }
 
-.settings-btn img {
+.btn img {
   width: 1.5rem;
   height: 1.5rem;
 }
 
+/* ==========================================================================
+   PAGE: MAIN MARGINS
+========================================================================== */
 .result-block {
   margin-top: 0.75rem; /* 12px */
 }
