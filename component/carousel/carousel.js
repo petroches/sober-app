@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(animate);
     }
 
-    control.scrollLeft = totalChunk * (midpointChunk + 1);
+    control.scrollLeft = totalChunk * midpointChunk;
 
     let savedValue = localStorage.getItem(`carousel_${key}`);
     const defaultValue = wrapper.dataset.default;
