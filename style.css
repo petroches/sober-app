@@ -160,6 +160,10 @@ body {
   cursor: pointer;
 }
 
+.drink-card:active {
+  background-color: var(--bg-secondary-active);
+}
+
 .drink-card.selected {
   border-color: var(--border-brand);
   cursor: default;
