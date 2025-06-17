@@ -39,13 +39,16 @@ drinkCards.forEach(card => {
   });
 });
 
-// Handle quantity segmented control selection
+// Handle quantity segmented control selection with small delay
 quantityOptions.forEach(option => {
   option.addEventListener('click', () => {
-    quantityOptions.forEach(o => o.classList.remove('selected'));
-    option.classList.add('selected');
-    selectedQuantity = parseInt(option.dataset.qty);
-    updateResult();
+    // Delay logic slightly to allow :active style to render
+    setTimeout(() => {
+      quantityOptions.forEach(o => o.classList.remove('selected'));
+      option.classList.add('selected');
+      selectedQuantity = parseInt(option.dataset.qty);
+      updateResult();
+    }, 50); // ~1 animation frame delay
   });
 });
 
