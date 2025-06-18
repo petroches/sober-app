@@ -1,33 +1,17 @@
-.container {
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  display: flex;
-  flex-direction: column;
-  height: 100dvh;
-  max-width: 27.5rem;
-  width: 100%;
-  padding: 3rem 2rem;
-  box-sizing: border-box;
-  margin: 0 auto;
-}
-
-/* Обёртка всегда отображается, но carousel внутри скрыт до инициализации */
 .carousel-wrapper {
   position: relative;
   overflow: hidden;
+  opacity: 1; /* Показываем сразу */
+  pointer-events: auto;
 }
 
-/* Скрываем только .carousel до ready */
-.carousel {
+.carousel-wrapper .carousel {
   opacity: 0;
-  pointer-events: none;
   transition: opacity 0.3s ease;
 }
 
-/* Появление .carousel после инициализации */
 .carousel-wrapper.ready .carousel {
   opacity: 1;
-  pointer-events: auto;
 }
 
 /* Центральная рамка — видна всегда */
