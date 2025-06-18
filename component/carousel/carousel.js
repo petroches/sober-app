@@ -1,5 +1,4 @@
-function updateCarouselPadding(carouselId) {
-  const carousel = document.getElementById(carouselId);
+function updateCarouselPadding(carousel) {
   const item = carousel.querySelector('.carousel-item');
   const paddings = carousel.querySelectorAll('.carousel-padding');
 
@@ -12,8 +11,7 @@ function updateCarouselPadding(carouselId) {
   paddings.forEach(p => p.style.width = `${sidePadding}px`);
 }
 
-function scrollToSelectedExactly(carouselId) {
-  const carousel = document.getElementById(carouselId);
+function scrollToSelectedExactly(carousel) {
   const selected = carousel.querySelector('.carousel-item.selected');
   if (!selected) return;
 
@@ -23,8 +21,7 @@ function scrollToSelectedExactly(carouselId) {
   carousel.scrollLeft = selectedOffset - carouselCenter;
 }
 
-function getClosestItem(carouselId) {
-  const carousel = document.getElementById(carouselId);
+function getClosestItem(carousel) {
   const items = carousel.querySelectorAll('.carousel-item');
   const centerX = carousel.scrollLeft + carousel.offsetWidth / 2;
 
@@ -43,16 +40,15 @@ function getClosestItem(carouselId) {
   return closestItem;
 }
 
-function updateSelectedItem(carouselId) {
-  const items = document.querySelectorAll(`#${carouselId} .carousel-item`);
-  const closestItem = getClosestItem(carouselId);
+function updateSelectedItem(carousel) {
+  const items = carousel.querySelectorAll('.carousel-item');
+  const closestItem = getClosestItem(carousel);
   items.forEach(item => item.classList.remove('selected'));
   if (closestItem) closestItem.classList.add('selected');
 }
 
-function snapToClosest(carouselId) {
-  const carousel = document.getElementById(carouselId);
-  const closestItem = getClosestItem(carouselId);
+function snapToClosest(carousel) {
+  const closestItem = getClosestItem(carousel);
   if (!closestItem) return;
 
   const itemCenter = closestItem.offsetLeft + closestItem.offsetWidth / 2;
@@ -62,27 +58,32 @@ function snapToClosest(carouselId) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  updateCarouselPadding('myCarousel');
-  scrollToSelectedExactly('myCarousel');
-  updateSelectedItem('myCarousel');
+  const carousels = document.querySelectorAll('.carousel[data-carousel]');
+  carousels.forEach(carousel => {
+    updateCarouselPadding(carousel);
+    scrollToSelectedExactly(carousel);
+    updateSelectedItem(carousel);
 
-  // Через 300 мс .carousel станет видимым
-  setTimeout(() => {
-    document.querySelector('.carousel-wrapper').classList.add('ready');
-  }, 300);
-});
+    const wrapper = carousel.closest('.carousel-wrapper');
+    setTimeout(() => {
+      wrapper.classList.add('ready');
+    }, 300);
 
-window.addEventListener('resize', () => {
-  updateCarouselPadding('myCarousel');
-  scrollToSelectedExactly('myCarousel');
-  updateSelectedItem('myCarousel');
-});
+    let scrollTimeout = null;
+    carousel.addEventListener('scroll', () => {
+      updateSelectedItem(carousel);
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        snapToClosest(carousel);
+      }, 100);
+    });
+  });
 
-let scrollTimeout = null;
-document.getElementById('myCarousel').addEventListener('scroll', () => {
-  updateSelectedItem('myCarousel');
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => {
-    snapToClosest('myCarousel');
-  }, 100);
+  window.addEventListener('resize', () => {
+    carousels.forEach(carousel => {
+      updateCarouselPadding(carousel);
+      scrollToSelectedExactly(carousel);
+      updateSelectedItem(carousel);
+    });
+  });
 });
