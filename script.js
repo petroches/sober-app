@@ -38,7 +38,7 @@ function calculateSoberTime(drinkType, quantity) {
   const soberHours = Math.max(0, (initialPromille - legalLimit) / eliminationRate);
 
   // Округляем вверх до ближайших 0.5 часов
-  const rounded = Math.ceil(soberHours * 2) / 2;
+  const rounded = Math.ceil(soberHours * 4) / 4;
 
   return rounded;
 }
