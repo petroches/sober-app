@@ -1,143 +1,92 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const carousels = document.querySelectorAll('.carousel-wrapper');
+function updateCarouselPadding(carouselId) {
+  const carousel = document.getElementById(carouselId);
+  const item = carousel.querySelector('.carousel-item');
+  const paddings = carousel.querySelectorAll('.carousel-padding');
 
-  carousels.forEach(wrapper => {
-    const control = wrapper.querySelector('.carousel-control');
-    const valuesAttr = wrapper.dataset.values;
-    const key = wrapper.dataset.carousel;
+  const itemWidth = item.offsetWidth;
+  const itemMargin = parseFloat(getComputedStyle(item).marginLeft || 0);
+  const totalItemWidth = itemWidth + itemMargin * 2;
+  const carouselWidth = carousel.offsetWidth;
+  const sidePadding = (carouselWidth - totalItemWidth) / 2;
 
-    const values = valuesAttr.split(',').map(v => v.trim());
-    const repeat = 5;
-    const allValues = Array(repeat).fill(values).flat();
+  paddings.forEach(p => p.style.width = `${sidePadding}px`);
+}
 
-    const optionWidth = 4 * 16;
-    const totalChunk = values.length * optionWidth;
-    const midpointChunk = Math.floor(repeat / 2);
+function scrollToSelectedExactly(carouselId) {
+  const carousel = document.getElementById(carouselId);
+  const selected = carousel.querySelector('.carousel-item.selected');
+  if (!selected) return;
 
-    let isDragging = false;
-    let dragMoved = false;
-    let startX, scrollStart;
+  const carouselCenter = carousel.offsetWidth / 2;
+  const selectedOffset = selected.offsetLeft + selected.offsetWidth / 2;
 
-    allValues.forEach(val => {
-      const el = document.createElement('div');
-      el.className = 'carousel-option';
-      el.textContent = val;
-      el.dataset.value = val;
+  carousel.scrollLeft = selectedOffset - carouselCenter;
+}
 
-      el.addEventListener('click', () => {
-        if (dragMoved) return;
-        const targetScroll = el.offsetLeft + optionWidth / 2 - control.offsetWidth / 2;
-        smoothScrollTo(control, targetScroll, 300);
-        highlightAndSave(el);
-      });
+function getClosestItem(carouselId) {
+  const carousel = document.getElementById(carouselId);
+  const items = carousel.querySelectorAll('.carousel-item');
 
-      control.appendChild(el);
-    });
+  const centerX = carousel.scrollLeft + carousel.offsetWidth / 2;
 
-    function centerToClosest() {
-      const centerX = control.scrollLeft + control.offsetWidth / 2;
-      const options = Array.from(control.querySelectorAll('.carousel-option'));
+  let closestItem = null;
+  let minDistance = Infinity;
 
-      let closest = null;
-      let minDist = Infinity;
-
-      options.forEach(opt => {
-        const box = opt.getBoundingClientRect();
-        const optionCenter = box.left + box.width / 2;
-        const dist = Math.abs(optionCenter - window.innerWidth / 2);
-        if (dist < minDist) {
-          minDist = dist;
-          closest = opt;
-        }
-      });
-
-      if (closest) {
-        const target = closest.offsetLeft + optionWidth / 2 - control.offsetWidth / 2;
-        smoothScrollTo(control, target, 300);
-        highlightAndSave(closest);
-      }
-
-      const currentOffset = control.scrollLeft;
-      const buffer = totalChunk * Math.floor(repeat / 3);
-      const scrollLimit = control.scrollWidth - control.offsetWidth;
-
-      if (currentOffset < buffer) {
-        control.scrollLeft = currentOffset + totalChunk * Math.floor(repeat / 2);
-      } else if (currentOffset > scrollLimit - buffer) {
-        control.scrollLeft = currentOffset - totalChunk * Math.floor(repeat / 2);
-      }
-    }
-
-    function highlightAndSave(selectedEl) {
-      control.querySelectorAll('.carousel-option').forEach(opt => opt.classList.remove('selected'));
-      selectedEl.classList.add('selected');
-      localStorage.setItem(`carousel_${key}`, selectedEl.dataset.value);
-    }
-
-    function smoothScrollTo(element, to, duration = 300) {
-      const start = element.scrollLeft;
-      const change = to - start;
-      const startTime = performance.now();
-
-      function animate(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const ease = 1 - Math.pow(1 - progress, 2);
-        element.scrollLeft = start + change * ease;
-        if (progress < 1) requestAnimationFrame(animate);
-      }
-
-      requestAnimationFrame(animate);
-    }
-
-    control.scrollLeft = totalChunk * midpointChunk;
-
-    let savedValue = localStorage.getItem(`carousel_${key}`);
-    const defaultValue = wrapper.dataset.default;
-
-    if (!savedValue && defaultValue && values.includes(defaultValue)) {
-      savedValue = defaultValue;
-    }
-
-    if (savedValue && values.includes(savedValue)) {
-      const indexInOriginal = values.indexOf(savedValue);
-      const indexInFull = Math.floor(repeat / 2) * values.length + indexInOriginal;
-      const targetScroll = indexInFull * optionWidth + optionWidth / 2 - control.offsetWidth / 2;
-      control.scrollLeft = targetScroll;
-    }
-
-    setTimeout(centerToClosest, 100);
-
-    let scrollTimeout;
-    control.addEventListener('scroll', () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(centerToClosest, 150);
-    });
-
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (!isTouch) {
-      control.addEventListener('mousedown', e => {
-        isDragging = true;
-        dragMoved = false;
-        startX = e.pageX - control.offsetLeft;
-        scrollStart = control.scrollLeft;
-      });
-
-      window.addEventListener('mousemove', e => {
-        if (!isDragging) return;
-        dragMoved = true;
-        const x = e.pageX - control.offsetLeft;
-        const walk = startX - x;
-        control.scrollLeft = scrollStart + walk;
-      });
-
-      window.addEventListener('mouseup', () => {
-        if (isDragging) {
-          isDragging = false;
-          dragMoved = false;
-          centerToClosest();
-        }
-      });
+  items.forEach(item => {
+    const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+    const distance = Math.abs(centerX - itemCenter);
+    if (distance < minDistance) {
+      minDistance = distance;
+      closestItem = item;
     }
   });
+
+  return closestItem;
+}
+
+function updateSelectedItem(carouselId) {
+  const items = document.querySelectorAll(`#${carouselId} .carousel-item`);
+  const closestItem = getClosestItem(carouselId);
+  items.forEach(item => item.classList.remove('selected'));
+  if (closestItem) closestItem.classList.add('selected');
+}
+
+function snapToClosest(carouselId) {
+  const carousel = document.getElementById(carouselId);
+  const closestItem = getClosestItem(carouselId);
+  if (!closestItem) return;
+
+  const itemCenter = closestItem.offsetLeft + closestItem.offsetWidth / 2;
+  const newScrollLeft = itemCenter - carousel.offsetWidth / 2;
+
+  carousel.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
+}
+
+// Init on load
+document.addEventListener('DOMContentLoaded', () => {
+  updateCarouselPadding('myCarousel');
+  scrollToSelectedExactly('myCarousel');
+  updateSelectedItem('myCarousel');
+
+  // Show carousel after scroll is done
+  setTimeout(() => {
+    document.querySelector('.carousel-wrapper').classList.add('ready');
+  }, 300);
+});
+
+// Update layout on resize
+window.addEventListener('resize', () => {
+  updateCarouselPadding('myCarousel');
+  scrollToSelectedExactly('myCarousel');
+  updateSelectedItem('myCarousel');
+});
+
+// Snap after scroll ends
+let scrollTimeout = null;
+document.getElementById('myCarousel').addEventListener('scroll', () => {
+  updateSelectedItem('myCarousel');
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    snapToClosest('myCarousel');
+  }, 100);
 });
