@@ -1,36 +1,14 @@
 .carousel-wrapper {
   position: relative;
   overflow: hidden;
-  opacity: 1; /* Показываем сразу */
+  opacity: 1;
+  pointer-events: none;
+}
+
+.carousel-wrapper.ready {
   pointer-events: auto;
 }
 
-.carousel-wrapper .carousel {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.carousel-wrapper.ready .carousel {
-  opacity: 1;
-}
-
-/* Центральная рамка — видна всегда */
-.carousel-indicator {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 4rem;
-  height: 3rem;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 0.125rem solid var(--border-brand);
-  border-radius: 0.75rem;
-  pointer-events: none;
-  z-index: 2;
-  box-sizing: border-box;
-}
-
-/* Слайдер значений */
 .carousel {
   display: flex;
   flex-direction: row;
@@ -43,39 +21,15 @@
   -webkit-overflow-scrolling: touch;
   position: relative;
   z-index: 1;
-  cursor: ew-resize; /* Курсор с горизонтальными стрелками */
+  cursor: ew-resize;
 }
 
-/* Убираем scrollbars */
-.carousel::-webkit-scrollbar {
-  display: none;
+.carousel-content {
+  display: contents;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-/* Отдельная ячейка */
-.carousel-item {
-  flex: 0 0 4rem;
-  height: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  border-radius: 0.75rem;
-  user-select: none;
-  cursor: pointer;
-  scroll-snap-align: center;
-}
-
-/* Выбранное значение */
-.carousel-item.selected {
-  color: var(--text-brand);
-  font-weight: 600;
-}
-
-/* Пустое пространство по бокам для центрирования краёв */
-.carousel-padding {
-  flex: 0 0 auto;
-  width: calc((100vw - 4rem - 4rem) / 2); /* item width + 2 * container horizontal padding */
+.carousel-wrapper.ready .carousel-content {
+  opacity: 1;
 }
