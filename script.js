@@ -55,6 +55,7 @@ function calculateSoberTime(drinkType, quantity) {
 
   // Время до безопасной нормы
   const hours = Math.max(0, (promille - legalLimit) / breakdownRate);
+  return Math.round(hours * 10) / 10; // округление до 1 знака после запятой
   //return Math.ceil(hours * 2) / 2; // округление до 0.5 часа
 }
 
