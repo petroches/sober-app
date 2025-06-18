@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Delay before showing the carousel itself (not the wrapper or indicator)
   setTimeout(() => {
-    document.getElementById('myCarousel').classList.add('ready');
+    document.querySelector('.carousel-wrapper').classList.add('ready');
   }, 300);
 });
 
