@@ -27,15 +27,22 @@ function getUserParams() {
 }
 
 function calculateSoberTime(drinkType, quantity) {
-  const alcoholConsumed = quantity * ethanolGrams[drinkType];
+  const alcoholConsumed = quantity * ethanolGrams[drinkType]; // в граммах
   const { gender, weight, age, legalLimit } = getUserParams();
-  const genderFactor = gender === 'Woman' ? 0.6 : 0.68;
-  const bodyWater = weight * genderFactor;
-  const promille = alcoholConsumed / bodyWater;
-  const breakdownRate = 0.015;
-  const hours = Math.max(0, (promille - legalLimit) / breakdownRate);
-  return Math.round(hours * 10) / 10;
+  const genderFactor = gender === 'Woman' ? 0.60 : 0.68; // r
+  const bodyWater = weight * genderFactor; // в кг
+
+  const initialPromille = alcoholConsumed / bodyWater; // BAC = A / (P * r), в ‰
+  const eliminationRate = 0.15; // промилле в час (0.15‰/ч)
+
+  const soberHours = Math.max(0, (initialPromille - legalLimit) / eliminationRate);
+
+  // Округляем вверх до ближайших 0.5 часов
+  const rounded = Math.ceil(soberHours * 2) / 2;
+
+  return rounded;
 }
+
 
 // Обновление результата на экране
 function updateResult() {
