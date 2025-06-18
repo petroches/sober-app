@@ -4,7 +4,7 @@
 :root {
   --text-primary: #1A1F36;
   --text-secondary: #697386;
-  --text-disabled: #8792A1;
+  --text-disabled: #C0C9D2;
   --text-brand: #3D4EAC;
   --text-invert: #FFFFFF;
 
@@ -22,7 +22,7 @@
   :root {
     --text-primary: #F1F5F9;
     --text-secondary: #A3ACB9;
-    --text-disabled: #697386;
+    --text-disabled: #4F566B;
     --text-brand: #7CABF8;
     --text-invert: #2A2F45;
 
