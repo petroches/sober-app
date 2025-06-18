@@ -74,3 +74,8 @@ function getClosestItem(carousel) {
 
   return closestItem;
 }
+
+// Navigate to settings page on button click
+document.querySelector('.btn').addEventListener('click', () => {
+  window.location.href = 'settings.html';
+});
