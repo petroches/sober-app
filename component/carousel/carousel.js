@@ -19,14 +19,12 @@ function scrollToSelectedExactly(carouselId) {
 
   const carouselCenter = carousel.offsetWidth / 2;
   const selectedOffset = selected.offsetLeft + selected.offsetWidth / 2;
-
   carousel.scrollLeft = selectedOffset - carouselCenter;
 }
 
 function getClosestItem(carouselId) {
   const carousel = document.getElementById(carouselId);
   const items = carousel.querySelectorAll('.carousel-item');
-
   const centerX = carousel.scrollLeft + carousel.offsetWidth / 2;
 
   let closestItem = null;
@@ -58,7 +56,6 @@ function snapToClosest(carouselId) {
 
   const itemCenter = closestItem.offsetLeft + closestItem.offsetWidth / 2;
   const newScrollLeft = itemCenter - carousel.offsetWidth / 2;
-
   carousel.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
 }
 
@@ -68,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
   scrollToSelectedExactly('myCarousel');
   updateSelectedItem('myCarousel');
 
-  // Show carousel after scroll is done
+  // Delay visual appearance
   setTimeout(() => {
     document.querySelector('.carousel-wrapper').classList.add('ready');
   }, 300);
