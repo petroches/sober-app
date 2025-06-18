@@ -3,60 +3,38 @@
 // Enable :active styles on iOS Safari
 document.addEventListener('touchstart', () => {}, true);
 
-// Alcohol absorption factors per drink type (in grams of pure alcohol)
-const drinkFactors = {
-  beer: 0.5,      // условные единицы алкоголя на напиток
-  wine: 1.0,
-  cocktail: 1.2,
-  shot: 1.4
+const ethanolGrams = {
+  beer: 19.7,
+  wine: 14.2,
+  cocktail: 15.8, // 1 шот
+  shot: 15.8
 };
 
-// DOM elements
 const drinkCards = document.querySelectorAll('.drink-card');
 const resultDisplay = document.getElementById('resultHours');
 
-// Selected values by default
 let selectedDrink = 'beer';
 let selectedQuantity = 1;
 
-// Подгружаем параметры из localStorage (с дефолтами)
 function getUserParams() {
   const gender = localStorage.getItem('gender') || 'Man';
   const weight = parseInt(localStorage.getItem('weight')) || 95;
   const age = parseInt(localStorage.getItem('age')) || 33;
   let legalLimit = parseFloat(localStorage.getItem('legalLimit'));
   if (isNaN(legalLimit)) legalLimit = 0.2;
-  if (legalLimit === 0.0) legalLimit = 0.01; // порог чувствительности прибора
+  if (legalLimit === 0.0) legalLimit = 0.01;
   return { gender, weight, age, legalLimit };
 }
 
-// Формула расчета времени до достижения безопасного уровня алкоголя в крови
 function calculateSoberTime(drinkType, quantity) {
-  const factor = drinkFactors[drinkType];
+  const alcoholConsumed = quantity * ethanolGrams[drinkType];
   const { gender, weight, age, legalLimit } = getUserParams();
-
-  // Вес в кг → в граммы
-  const gramsPerKg = 1.2; // скорость распада алкоголя в г/кг/ч
-
-  // Уточнённые коэффициенты на основе пола
-  const genderFactor = gender === 'Woman' ? 0.7 : 0.68;
-
-  // Расчёт общего количества алкоголя (в граммах), условно
-  const alcoholConsumed = quantity * factor * 14; // масштабируемая величина
-
-  // Эффективная масса тела (масса × коэффициент пола)
+  const genderFactor = gender === 'Woman' ? 0.6 : 0.68;
   const bodyWater = weight * genderFactor;
-
-  // Примерное содержание алкоголя в крови (‰)
   const promille = alcoholConsumed / bodyWater;
-
-  // Скорость распада: 0.015 ‰ в час
   const breakdownRate = 0.015;
-
-  // Время до безопасной нормы
   const hours = Math.max(0, (promille - legalLimit) / breakdownRate);
-  return Math.round(hours * 10) / 10; // округление до 1 знака после запятой
-  //return Math.ceil(hours * 2) / 2; // округление до 0.5 часа
+  return Math.round(hours * 10) / 10;
 }
 
 // Обновление результата на экране
