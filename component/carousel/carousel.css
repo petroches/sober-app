@@ -1,7 +1,13 @@
 .carousel-wrapper {
   position: relative;
-  overflow: hidden; /* Cut overflowing content */
-  margin-bottom: 2rem;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.carousel-wrapper.ready {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .carousel-indicator {
@@ -9,56 +15,56 @@
   top: 0;
   bottom: 0;
   width: 4rem;
+  height: 3rem;
   left: 50%;
   transform: translateX(-50%);
-  border: 2px solid var(--border-brand);
+  border: 2px solid #007aff;
   border-radius: 0.75rem;
   pointer-events: none;
   z-index: 2;
+  box-sizing: border-box;
 }
 
-.carousel-control {
+.carousel {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
-  overflow-y: hidden; /* ← обязательно */
-  background-color: var(--bg-secondary);
+  background-color: #F4F7FA;
   scrollbar-width: none;
   scroll-behavior: smooth;
   border-radius: 0.75rem;
-  position: relative;     /* ← обязательно для clip */
-  clip-path: inset(0);    /* ← подстраховка для Safari */
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  z-index: 1;
 }
 
-
-.carousel-control::-webkit-scrollbar {
+.carousel::-webkit-scrollbar {
   display: none;
 }
 
-.carousel-option {
+.carousel-item {
   flex: 0 0 4rem;
   height: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: #666;
   border-radius: 0.75rem;
   user-select: none;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-  box-sizing: border-box;
+  scroll-snap-align: center;
 }
 
-/*
-.carousel-option:active {
-  background-color: var(--bg-secondary-active);
-}
-*/
-
-.carousel-option.selected {
-  color: var(--text-brand);
+.carousel-item.selected {
+  color: #007aff;
   font-weight: 600;
+}
+
+.carousel-padding {
+  flex: 0 0 auto;
+  width: calc((100vw - 4rem - 4rem) / 2); /* item width + 2 * container horizontal padding */
 }
