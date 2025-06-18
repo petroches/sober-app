@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrapper = carousel.closest('.carousel-wrapper');
     setTimeout(() => {
       wrapper.classList.add('ready');
-    }, 300);
+    }, 500);
 
     let scrollTimeout = null;
     carousel.addEventListener('scroll', () => {
