@@ -11,26 +11,26 @@
   margin: 0 auto;
 }
 
+/* Обёртка всегда отображается, но carousel внутри скрыт до инициализации */
 .carousel-wrapper {
   position: relative;
   overflow: hidden;
-  opacity: 1;
-  pointer-events: none;
 }
 
-.carousel-wrapper .carousel {
+/* Скрываем только .carousel до ready */
+.carousel {
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.3s ease;
 }
 
-.carousel-wrapper.ready {
+/* Появление .carousel после инициализации */
+.carousel-wrapper.ready .carousel {
+  opacity: 1;
   pointer-events: auto;
 }
 
-.carousel-wrapper.ready .carousel {
-  opacity: 1;
-}
-
+/* Центральная рамка — видна всегда */
 .carousel-indicator {
   position: absolute;
   top: 0;
@@ -46,6 +46,7 @@
   box-sizing: border-box;
 }
 
+/* Слайдер значений */
 .carousel {
   display: flex;
   flex-direction: row;
@@ -58,13 +59,15 @@
   -webkit-overflow-scrolling: touch;
   position: relative;
   z-index: 1;
-  cursor: ew-resize;
+  cursor: ew-resize; /* Курсор с горизонтальными стрелками */
 }
 
+/* Убираем scrollbars */
 .carousel::-webkit-scrollbar {
   display: none;
 }
 
+/* Отдельная ячейка */
 .carousel-item {
   flex: 0 0 4rem;
   height: 3rem;
@@ -81,12 +84,14 @@
   scroll-snap-align: center;
 }
 
+/* Выбранное значение */
 .carousel-item.selected {
   color: var(--text-brand);
   font-weight: 600;
 }
 
+/* Пустое пространство по бокам для центрирования краёв */
 .carousel-padding {
   flex: 0 0 auto;
-  width: calc((100vw - 4rem - 4rem) / 2);
+  width: calc((100vw - 4rem - 4rem) / 2); /* item width + 2 * container horizontal padding */
 }
