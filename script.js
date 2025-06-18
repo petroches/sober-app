@@ -42,7 +42,7 @@ function calculateSoberTime(drinkType, quantity) {
   const genderFactor = gender === 'Woman' ? 0.7 : 0.68;
 
   // Расчёт общего количества алкоголя (в граммах), условно
-  const alcoholConsumed = quantity * factor * 10; // масштабируемая величина
+  const alcoholConsumed = quantity * factor * 14; // масштабируемая величина
 
   // Эффективная масса тела (масса × коэффициент пола)
   const bodyWater = weight * genderFactor;
@@ -50,8 +50,8 @@ function calculateSoberTime(drinkType, quantity) {
   // Примерное содержание алкоголя в крови (‰)
   const promille = alcoholConsumed / bodyWater;
 
-  // Скорость распада: 0.1–0.15 ‰ в час. Для простоты возьмём 0.12
-  const breakdownRate = 0.12;
+  // Скорость распада: 0.015 ‰ в час
+  const breakdownRate = 0.015;
 
   // Время до безопасной нормы
   const hours = Math.max(0, (promille - legalLimit) / breakdownRate);
