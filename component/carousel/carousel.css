@@ -11,7 +11,6 @@
 
 .carousel {
   display: flex;
-  flex-direction: row;
   overflow-x: auto;
   background-color: var(--bg-secondary);
   scrollbar-width: none;
@@ -24,12 +23,60 @@
   cursor: ew-resize;
 }
 
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* NEW: Контент исчезает сначала */
 .carousel-content {
-  display: contents;
+  display: flex;
+  flex-direction: row;
   opacity: 0;
   transition: opacity 0.3s ease;
+  width: 100%;
 }
 
 .carousel-wrapper.ready .carousel-content {
   opacity: 1;
+}
+
+.carousel-indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4rem;
+  height: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 0.125rem solid var(--border-brand);
+  border-radius: 0.75rem;
+  pointer-events: none;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.carousel-item {
+  flex: 0 0 4rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-radius: 0.75rem;
+  user-select: none;
+  cursor: pointer;
+  scroll-snap-align: center;
+}
+
+.carousel-item.selected {
+  color: var(--text-brand);
+  font-weight: 600;
+}
+
+.carousel-padding {
+  flex: 0 0 auto;
+  width: calc((100vw - 4rem - 4rem) / 2);
 }
