@@ -18,6 +18,17 @@ const resultDisplay = document.getElementById('resultHours');
 let selectedDrink = 'beer';
 let selectedQuantity = 1;
 
+// Listen for scroll or selection updates on carousels
+document.querySelectorAll('.carousel[data-carousel]').forEach(carousel => {
+  carousel.addEventListener('scroll', () => {
+    const closest = getClosestItem(carousel);
+    if (closest && closest.dataset.qty) {
+      selectedQuantity = parseInt(closest.dataset.qty, 10);
+      updateResult();
+    }
+  });
+});
+
 // Calculate and update display with estimated sobering time
 function updateResult() {
   const factor = drinkFactors[selectedDrink];
@@ -35,27 +46,31 @@ drinkCards.forEach(card => {
       card.classList.add('selected');
       selectedDrink = card.dataset.drink;
       updateResult();
-    }, 50); // 50ms is enough for visual :active effect
+    }, 50);
   });
 });
 
-// Handle quantity segmented control selection with small delay
-quantityOptions.forEach(option => {
-  option.addEventListener('click', () => {
-    // Delay logic slightly to allow :active style to render
-    setTimeout(() => {
-      quantityOptions.forEach(o => o.classList.remove('selected'));
-      option.classList.add('selected');
-      selectedQuantity = parseInt(option.dataset.qty);
-      updateResult();
-    }, 50); // ~1 animation frame delay
+// Recalculate on load
+document.addEventListener('DOMContentLoaded', () => {
+  updateResult();
+});
+
+// Get closest item in carousel
+function getClosestItem(carousel) {
+  const items = carousel.querySelectorAll('.carousel-item');
+  const centerX = carousel.scrollLeft + carousel.offsetWidth / 2;
+
+  let closestItem = null;
+  let minDistance = Infinity;
+
+  items.forEach(item => {
+    const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+    const distance = Math.abs(centerX - itemCenter);
+    if (distance < minDistance) {
+      minDistance = distance;
+      closestItem = item;
+    }
   });
-});
 
-// Initial render
-updateResult();
-
-// Navigate to settings page on button click
-document.querySelector('.btn').addEventListener('click', () => {
-  window.location.href = 'settings.html';
-});
+  return closestItem;
+}
