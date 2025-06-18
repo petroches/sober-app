@@ -1,16 +1,17 @@
+// script.js (обновлён: учитывает параметры из localStorage)
+
 // Enable :active styles on iOS Safari
 document.addEventListener('touchstart', () => {}, true);
 
-// Alcohol absorption factors per drink type (in hours per unit)
+// Alcohol absorption factors per drink type (in grams of pure alcohol)
 const drinkFactors = {
-  beer: 0.5,
+  beer: 0.5,      // условные единицы алкоголя на напиток
   wine: 1.0,
   cocktail: 1.2,
   shot: 1.4
 };
 
 // DOM elements
-const quantityOptions = document.querySelectorAll('.segmented-option');
 const drinkCards = document.querySelectorAll('.drink-card');
 const resultDisplay = document.getElementById('resultHours');
 
@@ -18,7 +19,52 @@ const resultDisplay = document.getElementById('resultHours');
 let selectedDrink = 'beer';
 let selectedQuantity = 1;
 
-// Listen for scroll or selection updates on carousels
+// Подгружаем параметры из localStorage (с дефолтами)
+function getUserParams() {
+  const gender = localStorage.getItem('gender') || 'Man';
+  const weight = parseInt(localStorage.getItem('weight')) || 95;
+  const age = parseInt(localStorage.getItem('age')) || 33;
+  let legalLimit = parseFloat(localStorage.getItem('legalLimit'));
+  if (isNaN(legalLimit)) legalLimit = 0.2;
+  if (legalLimit === 0.0) legalLimit = 0.01; // порог чувствительности прибора
+  return { gender, weight, age, legalLimit };
+}
+
+// Формула расчета времени до достижения безопасного уровня алкоголя в крови
+function calculateSoberTime(drinkType, quantity) {
+  const factor = drinkFactors[drinkType];
+  const { gender, weight, age, legalLimit } = getUserParams();
+
+  // Вес в кг → в граммы
+  const gramsPerKg = 1.2; // скорость распада алкоголя в г/кг/ч
+
+  // Уточнённые коэффициенты на основе пола
+  const genderFactor = gender === 'Woman' ? 0.7 : 0.68;
+
+  // Расчёт общего количества алкоголя (в граммах), условно
+  const alcoholConsumed = quantity * factor * 10; // масштабируемая величина
+
+  // Эффективная масса тела (масса × коэффициент пола)
+  const bodyWater = weight * genderFactor;
+
+  // Примерное содержание алкоголя в крови (‰)
+  const promille = alcoholConsumed / bodyWater;
+
+  // Скорость распада: 0.1–0.15 ‰ в час. Для простоты возьмём 0.12
+  const breakdownRate = 0.12;
+
+  // Время до безопасной нормы
+  const hours = Math.max(0, (promille - legalLimit) / breakdownRate);
+  return Math.ceil(hours * 2) / 2; // округление до 0.5 часа
+}
+
+// Обновление результата на экране
+function updateResult() {
+  const hours = calculateSoberTime(selectedDrink, selectedQuantity);
+  resultDisplay.textContent = `${hours}h`;
+}
+
+// Обработчик скролла карусели с количеством напитков
 document.querySelectorAll('.carousel[data-carousel]').forEach(carousel => {
   carousel.addEventListener('scroll', () => {
     const closest = getClosestItem(carousel);
@@ -29,18 +75,9 @@ document.querySelectorAll('.carousel[data-carousel]').forEach(carousel => {
   });
 });
 
-// Calculate and update display with estimated sobering time
-function updateResult() {
-  const factor = drinkFactors[selectedDrink];
-  const rawHours = selectedQuantity * factor;
-  const rounded = Math.ceil(rawHours * 2) / 2; // Round to nearest 0.5
-  resultDisplay.textContent = `${rounded}h`;
-}
-
-// Handle drink card selection
+// Обработка кликов по карточкам напитков
 drinkCards.forEach(card => {
   card.addEventListener('click', () => {
-    // Delay logic slightly to allow :active style to render
     setTimeout(() => {
       drinkCards.forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
@@ -50,12 +87,12 @@ drinkCards.forEach(card => {
   });
 });
 
-// Recalculate on load
+// Пересчёт при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
   updateResult();
 });
 
-// Get closest item in carousel
+// Вычисление ближайшего элемента в карусели
 function getClosestItem(carousel) {
   const items = carousel.querySelectorAll('.carousel-item');
   const centerX = carousel.scrollLeft + carousel.offsetWidth / 2;
@@ -75,7 +112,7 @@ function getClosestItem(carousel) {
   return closestItem;
 }
 
-// Navigate to settings page on button click
+// Кнопка перехода к настройкам
 document.querySelector('.btn').addEventListener('click', () => {
   window.location.href = 'settings.html';
 });
