@@ -3,6 +3,8 @@
   overflow: hidden;
   opacity: 1;
   pointer-events: none;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .carousel-wrapper.ready {
