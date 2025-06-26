@@ -13,40 +13,32 @@
 
 .carousel {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  overflow-x: auto;
+  display: block;
+  overflow: hidden;
   background-color: var(--bg-secondary);
-  scrollbar-width: none;
-  scroll-behavior: smooth;
   border-radius: 0.75rem;
+}
+
+.carousel-inner {
+  overflow-x: auto;
+  display: flex;
+  scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  z-index: 1;
-  cursor: ew-resize;
 }
 
-.carousel::-webkit-scrollbar {
-  display: none;
-}
-
-/* NEW: Контент исчезает сначала */
 .carousel-content {
   display: flex;
   flex-direction: row;
-  opacity: 0;
-  transition: opacity 0.3s ease;
   width: 100%;
 }
 
-.carousel-wrapper.ready .carousel-content {
-  opacity: 1;
-}
-
 .carousel-indicator {
-  position: sticky;
+  position: absolute;
   top: 0;
-  align-self: center;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 4rem;
   height: 3rem;
   border: 0.125rem solid var(--border-brand);
@@ -54,8 +46,6 @@
   pointer-events: none;
   z-index: 2;
   box-sizing: border-box;
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
 }
 
 .carousel-item {
