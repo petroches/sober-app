@@ -23,6 +23,7 @@ document.querySelectorAll('.segmented-control').forEach(control => {
         option.classList.add('selected');
         const gender = option.dataset.qty;
         saveSetting('gender', gender);
+        updateResult();
       }, 50);
     });
   });
