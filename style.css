@@ -31,10 +31,10 @@
     --bg-secondary: #2A2F45;
     --bg-secondary-active: #3C4257;
     --bg-brand: #7CABF8;
-    --bg-backdrop: #1A1F36;
+    --bg-backdrop: #171B30;
 
     --border-default: #4F566B;
-    --border-brand: #171B30;
+    --border-brand: #7CABF8;
     --border-transparent: transparent;
   }
 }
