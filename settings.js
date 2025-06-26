@@ -53,11 +53,16 @@ carousels.forEach((carousel, index) => {
     const closest = getClosestItem(carousel);
     if (!closest) return;
     const value = closest.textContent;
-    if (index === 0) saveSetting('age', value);
-    else if (index === 1) saveSetting('weight', value);
-    updateResult();
-    else if (index === 2) saveSetting('legalLimit', value);
-    updateResult();
+
+    if (index === 0) {
+      saveSetting('age', value);
+    } else if (index === 1) {
+      saveSetting('weight', value);
+      updateResult();
+    } else if (index === 2) {
+      saveSetting('legalLimit', value);
+      updateResult();
+    }
   });
 });
 
