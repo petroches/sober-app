@@ -47,7 +47,7 @@ function getClosestItem(carousel) {
 }
 
 // Подключаем обработчики для всех трёх каруселей
-const carousels = document.querySelectorAll('.carousel[data-carousel]');
+const carousels = document.querySelectorAll('.carousel-inner');
 carousels.forEach((carousel, index) => {
   carousel.addEventListener('scroll', () => {
     const closest = getClosestItem(carousel);
