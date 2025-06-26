@@ -55,7 +55,9 @@ carousels.forEach((carousel, index) => {
     const value = closest.textContent;
     if (index === 0) saveSetting('age', value);
     else if (index === 1) saveSetting('weight', value);
+    updateResult();
     else if (index === 2) saveSetting('legalLimit', value);
+    updateResult();
   });
 });
 
