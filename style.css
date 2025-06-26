@@ -271,6 +271,11 @@ body {
   pointer-events: none;
 }
 
+.backdrop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .bottom-sheet {
   position: fixed;
   bottom: 0;
@@ -282,20 +287,20 @@ body {
   max-height: 80vh;
   overflow-y: auto;
   transform: translateY(100%);
-  transition: transform 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   z-index: 11;
   padding: 1rem;
 }
 
-.backdrop.visible {
+.bottom-sheet.visible {
+  transform: translateY(0%);
   opacity: 1;
   pointer-events: auto;
 }
 
-.bottom-sheet.visible {
-  transform: translateY(0%);
-}
-
 .hidden {
-  display: none;
+  opacity: 0;
+  pointer-events: none;
 }
