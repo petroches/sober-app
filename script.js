@@ -71,9 +71,9 @@ drinkCards.forEach(card => {
 });
 
 // Обработка карусели с количеством напитков
-document.querySelectorAll('.carousel[data-carousel]').forEach(carousel => {
-  carousel.addEventListener('scroll', () => {
-    const closest = getClosestItem(carousel);
+document.querySelectorAll('.carousel-inner').forEach(inner => {
+  inner.addEventListener('scroll', () => {
+    const closest = getClosestItem(inner);
     if (closest && closest.dataset.qty) {
       selectedQuantity = parseInt(closest.dataset.qty, 10);
       updateResult();
