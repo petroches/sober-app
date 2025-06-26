@@ -58,7 +58,7 @@ function snapToClosest(carousel) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const carousels = document.querySelectorAll('.carousel[data-carousel]');
+  const carousels = document.querySelectorAll('.carousel-inner');
   carousels.forEach(carousel => {
     updateCarouselPadding(carousel);
     scrollToSelectedExactly(carousel);
