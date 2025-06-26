@@ -15,7 +15,6 @@
     <link rel="apple-touch-icon" href="sober-icon-512.png" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-
   </head>
   <body>
     <main class="container">
@@ -65,10 +64,69 @@
           </div>
         </div>
       </div>
-      
     </main>
+
+    <!-- Settings Bottom Sheet -->
+    <div id="settingsBackdrop" class="backdrop hidden"></div>
+    <div id="settingsSheet" class="bottom-sheet hidden">
+      <header class="header">
+        <h1 class="title">Settings</h1>
+        <button class="btn" id="closeSettingsBtn">
+          <img src="https://i.postimg.cc/ZKRnFNYn/close-24-px-x3.png" alt="Close" />
+        </button>
+      </header>
+
+      <div class="label">Gender</div>
+      <section class="segmented-control">
+        <div class="segmented-option" data-qty="Man">Man</div>
+        <div class="segmented-option" data-qty="Woman">Woman</div>
+      </section>
+
+      <div class="label weight-label">Weight kg</div>
+      <div class="carousel-wrapper">
+        <div class="carousel-indicator"></div>
+        <div class="carousel" data-carousel>
+          <div class="carousel-content">
+            <div class="carousel-padding"></div>
+            <div class="carousel-item">50</div>
+            <div class="carousel-item">55</div>
+            <div class="carousel-item">60</div>
+            <div class="carousel-item">65</div>
+            <div class="carousel-item">70</div>
+            <div class="carousel-item">75</div>
+            <div class="carousel-item">80</div>
+            <div class="carousel-item">85</div>
+            <div class="carousel-item">90</div>
+            <div class="carousel-item selected">95</div>
+            <div class="carousel-item">100</div>
+            <div class="carousel-padding"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="label">Alcohol limit ‰</div>
+      <div class="carousel-wrapper">
+        <div class="carousel-indicator"></div>
+        <div class="carousel" data-carousel>
+          <div class="carousel-content">
+            <div class="carousel-padding"></div>
+            <div class="carousel-item">0.0</div>
+            <div class="carousel-item">0.1</div>
+            <div class="carousel-item selected">0.2</div>
+            <div class="carousel-item">0.3</div>
+            <div class="carousel-item">0.4</div>
+            <div class="carousel-item">0.5</div>
+            <div class="carousel-item">0.6</div>
+            <div class="carousel-item">0.7</div>
+            <div class="carousel-item">0.8</div>
+            <div class="carousel-padding"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="script.js"></script>
     <script src="component/carousel/carousel.js"></script>
+    <script src="settings.js"></script>
   </body>
 </html>
