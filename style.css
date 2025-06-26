@@ -282,8 +282,8 @@ body {
   left: 0;
   right: 0;
   background: var(--bg-primary);
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
   max-height: 80vh;
   overflow-y: auto;
   transform: translateY(100%);
@@ -304,3 +304,13 @@ body {
   opacity: 0;
   pointer-events: none;
 }
+
+#settingsSheet .label {
+  margin-bottom: 0.5rem;
+}
+
+#settingsSheet .segmented-control,
+#settingsSheet .carousel-wrapper {
+  margin-bottom: 1.5rem;
+}
+
