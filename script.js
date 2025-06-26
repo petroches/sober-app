@@ -1,4 +1,4 @@
-// script.js (обновлён: учитывает параметры из localStorage)
+// script.js (объединённый, исправленный)
 
 // Enable :active styles on iOS Safari
 document.addEventListener('touchstart', () => {}, true);
@@ -27,58 +27,24 @@ function getUserParams() {
 }
 
 function calculateSoberTime(drinkType, quantity) {
-  const alcoholConsumed = quantity * ethanolGrams[drinkType]; // в граммах
-  const { gender, weight, age, legalLimit } = getUserParams();
-  const genderFactor = gender === 'Woman' ? 0.60 : 0.68; // r
-  const bodyWater = weight * genderFactor; // в кг
-
-  const initialPromille = alcoholConsumed / bodyWater; // BAC = A / (P * r), в ‰
-  const eliminationRate = 0.15; // промилле в час (0.15‰/ч)
+  const alcoholConsumed = quantity * ethanolGrams[drinkType];
+  const { gender, weight, legalLimit } = getUserParams();
+  const genderFactor = gender === 'Woman' ? 0.60 : 0.68;
+  const bodyWater = weight * genderFactor;
+  const initialPromille = alcoholConsumed / bodyWater;
+  const eliminationRate = 0.15;
 
   const soberHours = Math.max(0, (initialPromille - legalLimit) / eliminationRate);
-
-  // Округляем вверх до ближайших 0.5 часов вверх
   const rounded = Math.ceil(soberHours * 2) / 2;
 
   return rounded;
 }
 
-
-// Обновление результата на экране
 function updateResult() {
   const hours = calculateSoberTime(selectedDrink, selectedQuantity);
   resultDisplay.textContent = `${hours}h`;
 }
 
-// Обработчик скролла карусели с количеством напитков
-document.querySelectorAll('.carousel[data-carousel]').forEach(carousel => {
-  carousel.addEventListener('scroll', () => {
-    const closest = getClosestItem(carousel);
-    if (closest && closest.dataset.qty) {
-      selectedQuantity = parseInt(closest.dataset.qty, 10);
-      updateResult();
-    }
-  });
-});
-
-// Обработка кликов по карточкам напитков
-drinkCards.forEach(card => {
-  card.addEventListener('click', () => {
-    setTimeout(() => {
-      drinkCards.forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      selectedDrink = card.dataset.drink;
-      updateResult();
-    }, 50);
-  });
-});
-
-// Пересчёт при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-  updateResult();
-});
-
-// Вычисление ближайшего элемента в карусели
 function getClosestItem(carousel) {
   const items = carousel.querySelectorAll('.carousel-item');
   const centerX = carousel.scrollLeft + carousel.offsetWidth / 2;
@@ -98,7 +64,56 @@ function getClosestItem(carousel) {
   return closestItem;
 }
 
-// Кнопка перехода к настройкам
-document.querySelector('.btn').addEventListener('click', () => {
-  window.location.href = 'settings.html';
+// Обработка drink-карточек
+drinkCards.forEach(card => {
+  card.addEventListener('click', () => {
+    setTimeout(() => {
+      drinkCards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      selectedDrink = card.dataset.drink;
+      updateResult();
+    }, 50);
+  });
+});
+
+// Карусель количества напитков
+document.querySelectorAll('.carousel[data-carousel]').forEach(carousel => {
+  carousel.addEventListener('scroll', () => {
+    const closest = getClosestItem(carousel);
+    if (closest && closest.dataset.qty) {
+      selectedQuantity = parseInt(closest.dataset.qty, 10);
+      updateResult();
+    }
+  });
+});
+
+// Открытие/закрытие bottom sheet
+document.addEventListener('DOMContentLoaded', () => {
+  updateResult();
+
+  const openBtn = document.querySelector('.btn');
+  const closeBtn = document.getElementById('closeSettingsBtn');
+  const backdrop = document.getElementById('settingsBackdrop');
+  const sheet = document.getElementById('settingsSheet');
+
+  if (openBtn && closeBtn && backdrop && sheet) {
+    openBtn.addEventListener('click', () => {
+      backdrop.classList.add('visible');
+      backdrop.classList.remove('hidden');
+      sheet.classList.add('visible');
+      sheet.classList.remove('hidden');
+    });
+
+    function closeSheet() {
+      backdrop.classList.remove('visible');
+      sheet.classList.remove('visible');
+      setTimeout(() => {
+        backdrop.classList.add('hidden');
+        sheet.classList.add('hidden');
+      }, 300);
+    }
+
+    closeBtn.addEventListener('click', closeSheet);
+    backdrop.addEventListener('click', closeSheet);
+  }
 });
