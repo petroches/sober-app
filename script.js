@@ -1,4 +1,4 @@
-// script.js (объединённый, исправленный)
+// script.js (финальная версия)
 
 // Enable :active styles on iOS Safari
 document.addEventListener('touchstart', () => {}, true);
@@ -6,7 +6,7 @@ document.addEventListener('touchstart', () => {}, true);
 const ethanolGrams = {
   beer: 19.7,
   wine: 14.2,
-  cocktail: 15.8, // 1 шот
+  cocktail: 15.8,
   shot: 15.8
 };
 
@@ -33,11 +33,8 @@ function calculateSoberTime(drinkType, quantity) {
   const bodyWater = weight * genderFactor;
   const initialPromille = alcoholConsumed / bodyWater;
   const eliminationRate = 0.15;
-
   const soberHours = Math.max(0, (initialPromille - legalLimit) / eliminationRate);
-  const rounded = Math.ceil(soberHours * 2) / 2;
-
-  return rounded;
+  return Math.ceil(soberHours * 2) / 2;
 }
 
 function updateResult() {
@@ -48,10 +45,8 @@ function updateResult() {
 function getClosestItem(carousel) {
   const items = carousel.querySelectorAll('.carousel-item');
   const centerX = carousel.scrollLeft + carousel.offsetWidth / 2;
-
   let closestItem = null;
   let minDistance = Infinity;
-
   items.forEach(item => {
     const itemCenter = item.offsetLeft + item.offsetWidth / 2;
     const distance = Math.abs(centerX - itemCenter);
@@ -60,7 +55,6 @@ function getClosestItem(carousel) {
       closestItem = item;
     }
   });
-
   return closestItem;
 }
 
@@ -76,7 +70,7 @@ drinkCards.forEach(card => {
   });
 });
 
-// Карусель количества напитков
+// Обработка карусели с количеством напитков
 document.querySelectorAll('.carousel[data-carousel]').forEach(carousel => {
   carousel.addEventListener('scroll', () => {
     const closest = getClosestItem(carousel);
@@ -96,12 +90,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const backdrop = document.getElementById('settingsBackdrop');
   const sheet = document.getElementById('settingsSheet');
 
+  function forceReflow(el) {
+    void el.offsetHeight;
+  }
+
   if (openBtn && closeBtn && backdrop && sheet) {
     openBtn.addEventListener('click', () => {
       backdrop.classList.add('visible');
       backdrop.classList.remove('hidden');
       sheet.classList.add('visible');
       sheet.classList.remove('hidden');
+
+      // iOS Safari fix: принудительный reflow рамки
+      setTimeout(() => {
+        document.querySelectorAll('.carousel-indicator').forEach(forceReflow);
+      }, 50);
     });
 
     function closeSheet() {
