@@ -291,7 +291,7 @@ body {
   pointer-events: none;
   transition: transform 0.3s ease, opacity 0.3s ease;
   z-index: 11;
-  padding: 2rem;
+  padding: 2rem 2rem 1rem 2rem; /* top right bottom left */
 }
 
 .bottom-sheet.visible {
@@ -315,7 +315,7 @@ body {
 }
 
 #settingsSheet .header {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 
