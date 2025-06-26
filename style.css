@@ -286,8 +286,8 @@ body {
   margin-left: auto;
   margin-right: auto;
   background: var(--bg-primary);
-  border-top-left-radius: 2rem;
-  border-top-right-radius: 2rem;
+  border-top-left-radius: 2.5rem;
+  border-top-right-radius: 2.5rem;
   max-height: 80vh;
   overflow-y: auto;
   transform: translateY(100%);
@@ -295,7 +295,7 @@ body {
   pointer-events: none;
   transition: transform 0.3s ease, opacity 0.3s ease;
   z-index: 11;
-  padding: 2rem 2rem 1.25rem 2rem; /* top right bottom left */
+  padding: 2rem 2rem 1.5rem 2rem; /* top right bottom left */
 }
 
 .bottom-sheet.visible {
