@@ -12,7 +12,7 @@
   --bg-secondary: #F4F7FA;
   --bg-secondary-active: #E3E8ED;
   --bg-brand: #3D4EAC;
-  --bg-backdrop: #171B30;
+  --bg-backdrop: #000520;
 
   --border-default: #E3E8ED;
   --border-brand: #3D4EAC;
@@ -31,7 +31,7 @@
     --bg-secondary: #2A2F45;
     --bg-secondary-active: #3C4257;
     --bg-brand: #7CABF8;
-    --bg-backdrop: #171B30;
+    --bg-backdrop: #000520;
 
     --border-default: #4F566B;
     --border-brand: #7CABF8;
